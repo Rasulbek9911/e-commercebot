@@ -18,16 +18,14 @@ def category() -> ReplyKeyboardMarkup:
     return ReplyKeyboardMarkup(buttons, resize_keyboard=True)
 
 
-def product_next(products) -> InlineKeyboardMarkup:
-    for product in products:
-        buttons = [
-            [
-                InlineKeyboardButton("⏪ orqaga", callback_data=f"back-{product.id}"),
-                InlineKeyboardButton("⏩ oldinga", callback_data=f"next-{product.id}")
-            ],
-            [
-                InlineKeyboardButton("🛒 savatchaga qoshish", callback_data="add")
-            ]
+def product_next(id) -> InlineKeyboardMarkup:
+    buttons = [
+        [
+            InlineKeyboardButton("⏪ orqaga", callback_data=f"back-{id}"),
+            InlineKeyboardButton("⏩ oldinga", callback_data=f"next-{id}")
+        ],
+        [
+            InlineKeyboardButton("🛒 savatchaga qoshish", callback_data="add")
         ]
-
+    ]
     return InlineKeyboardMarkup(buttons)

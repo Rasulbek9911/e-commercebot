@@ -24,14 +24,19 @@ def command_start(update: Update, context: CallbackContext) -> None:
 
 
 def products_category(update: Update, context: CallbackContext) -> None:
+    products = Product.objects.all()
+    product_next(products)
     update.message.reply_text(text="categoryni tanglang", reply_markup=category())
 
 
 def products_phone(update: Update, context: CallbackContext) -> None:
-    product = Product.objects.all().first()
-    cap = f"{product.name}\n{product.description}\n narxi: {product.price}$"
-    update.message.reply_photo(photo=product.image, caption=cap, reply_markup=product_next(product))
+    products = Product.objects.all()
+    for i in products:
+        cap = f"{i.name}\n{i.description}\n narxi: {i.price}$"
+        update.message.reply_photo(photo=i.image, caption=cap, reply_markup=product_next(i.id))
 
 
 def next_data(update: Update, context: CallbackContext) -> None:
-    print("keldi")
+    product_id = update.callback_query.data.split("-")[1]
+    data = Product.objects.filter(id=int(product_id) + 1)
+    print(data.name)
